@@ -1,0 +1,7 @@
+.add-note.active {
+  background-color: gray !important;
+
+  & b {
+    color: white;
+  }
+}

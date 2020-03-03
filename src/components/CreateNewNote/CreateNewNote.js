@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './CreateNewNote.css'
+import './CreateNewNote.scss'
 import store from '../../store/store'
 import {NavLink} from 'react-router-dom'
 
@@ -38,7 +38,7 @@ export default class CreateNewNote extends Component {
             editing = true
         }
         return (
-            <div key={'note-creator'} className={'note-creator'}>
+            <div key={'note-creator'} className={'create-note__creator'}>
                 <h2>{editing === true
                     ? 'Редактирование заметки'
                     : 'Создание заметки'
@@ -60,7 +60,7 @@ export default class CreateNewNote extends Component {
                 </textarea>
                 <div className={'button-section'}>
                     <NavLink to={`${editing === true ? '/current-note/' + id : '/'}`}
-                             className={'app-style'} onClick={() => {
+                             className={'main-item-style'} onClick={() => {
                         if (editing === true) {
                             let header, text
                             this.state.header.itsChange === true
@@ -75,7 +75,7 @@ export default class CreateNewNote extends Component {
                     }}>Сохранить
                     </NavLink>
                     <NavLink to={`${editing === true ? '/current-note/' + id : '/'}`}
-                             className={'app-style'}>Удалить</NavLink>
+                             className={'main-item-style'}>Удалить</NavLink>
                 </div>
             </div>
         )

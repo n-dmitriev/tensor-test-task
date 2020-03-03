@@ -22,9 +22,9 @@ const store = {
     },
     addNote: function (header, content, data) {
         const id = `note-${Math.random().toString(36).substr(2, 9)}`
-       this.listOfNotes.unshift({
-           id: id,header, content, data
-       })
+        this.listOfNotes.unshift({
+            id: id, header, content, data,
+        })
         this.subscribers.forEach((c) => c.func(this.listOfNotes))
         localStorage.setItem('items', JSON.stringify(this.listOfNotes))
         return id
@@ -32,7 +32,7 @@ const store = {
     deleteNoteById: function (id) {
         const index = this.listOfNotes.findIndex(x => x.id === id)
         if (index > -1) {
-            this.listOfNotes.splice(index, 1);
+            this.listOfNotes.splice(index, 1)
         }
         this.subscribers.forEach((c) => c.func(this.listOfNotes))
         localStorage.setItem('items', JSON.stringify(this.listOfNotes))
@@ -45,11 +45,11 @@ const store = {
         if (header === '')
             return null
         const index = this.listOfNotes.findIndex(x => x.header.indexOf(header) !== -1)
-        if(index === -1)
+        if (index === -1)
             return null
         else
             return this.listOfNotes[index].id
-    }
+    },
 }
 
 export default store

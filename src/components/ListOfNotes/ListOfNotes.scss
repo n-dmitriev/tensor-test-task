@@ -1,0 +1,68 @@
+.list-notes {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  margin: 5px;
+  height: 30rem;
+
+  & .active {
+    background-color: gray;
+    color: white;
+  }
+
+  &__data {
+    font-size: 13px;
+    opacity: 50%;
+    float: right;
+    padding: 0 8px 8px 0;
+  }
+
+  &__note {
+    margin: 20px;
+    width: 80%;
+    background-color: lightgray;
+    padding: 0 0 0 10px;
+    border: 1px solid #cecece;
+    border-radius: 8px;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    -webkit-transition: all 0.2s ease-out;
+
+    &:hover {
+      -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  }
+
+  .non-click {
+    pointer-events: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #999;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: #ededed;
+}
+
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  background-color: #666;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #999;
+}
+
+::-webkit-resizer {
+  background-color: #666;
+}

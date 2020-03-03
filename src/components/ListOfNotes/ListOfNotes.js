@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './ListOfNotes.css'
+import './ListOfNotes.scss'
 import {NavLink} from 'react-router-dom'
 import store from '../../store/store'
 
@@ -15,10 +15,10 @@ class ListOfNotes extends Component {
         const listOfNotes = this.state.notes
         return listOfNotes.map(note => {
             return (
-                <NavLink id={note.id} key={note.id} className={'note'} to={`/current-note/${note.id}`}>
+                <NavLink id={note.id} key={note.id} className={'list-notes__note'} to={`/current-note/${note.id}`}>
                     <h3 className="non-click">{note.header}</h3>
                     <p className="non-click"><i>{note.content.split(' ').slice(0, 6).join(' ')}...</i></p>
-                    <span className={'data'}>{note.data.split(' ').slice(1, 4).join(' ')}</span>
+                    <span className={'list-notes__data'}>{note.data.split(' ').slice(1, 4).join(' ')}</span>
                 </NavLink>
             )
         })

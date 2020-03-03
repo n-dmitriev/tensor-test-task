@@ -1,0 +1,90 @@
+@import "normalize.css";
+
+.app {
+  display: flex;
+  margin: 5px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  min-width: 470px;
+  background-color: #ededed;
+  font-family: Arial;
+
+  & .app__main-unit {
+    flex: 5;
+  }
+
+  & .app__said-unit {
+    flex: 2;
+  }
+
+  & .main-item-style {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: 0 !important;
+    margin: 6px 20px 10px 20px;
+    padding: 1px;
+    width: 80%;
+    height: 2rem;
+    font-size: 15px;
+    background-color: lightgray;
+    border: 1px solid white;
+    border-radius: 8px;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+
+    &:hover {
+      -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      transform: scale(1.1);
+      background-color: gray;
+      color: white;
+    }
+  }
+
+  & .button-section {
+    display: flex;
+    margin: 0;
+  }
+
+  h1, h2 {
+    margin: 6px 20px 10px 20px;
+    cursor: pointer;
+
+    &:hover {
+      animation: bounce 1s;
+    }
+
+    @keyframes bounce {
+      0%,
+      20%,
+      60%,
+      100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+      }
+
+      40% {
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+      }
+
+      80% {
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+
+    &:active,
+    &:link,
+    &:visited,
+    &:hover {
+      color: black;
+    }
+  }
+}
