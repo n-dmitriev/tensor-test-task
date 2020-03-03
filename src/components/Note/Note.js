@@ -8,7 +8,7 @@ class Note extends Component {
     renderNote() {
         const activeNote = store.getNoteById(this.props.match.params.number)
         return (
-            <div key={activeNote.id} className={'active-note__note'}>
+            <div key={activeNote.id} className={'content-section'}>
                 <h2>{activeNote.header}</h2>
                 <hr/>
                 <p>{activeNote.content}

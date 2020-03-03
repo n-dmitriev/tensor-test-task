@@ -13,12 +13,16 @@ class ListOfNotes extends Component {
 
     renderNotes() {
         const listOfNotes = this.state.notes
+        if(listOfNotes.length === 0)
+            return <b className={'list-notes__message-no-notes'}>Вы ещё не создали заметок...</b>
         return listOfNotes.map(note => {
             return (
                 <NavLink id={note.id} key={note.id} className={'list-notes__note'} to={`/current-note/${note.id}`}>
-                    <h3 className="non-click">{note.header}</h3>
-                    <p className="non-click"><i>{note.content.split(' ').slice(0, 6).join(' ')}...</i></p>
-                    <span className={'list-notes__data'}>{note.data.split(' ').slice(1, 4).join(' ')}</span>
+                    <div className="non-click">
+                        <h3>{note.header}</h3>
+                        <p><i>{note.content.split(' ').slice(0, 6).join(' ')}...</i></p>
+                        <span className={'list-notes__data'}>{note.data.split(' ').slice(1, 4).join(' ')}</span>
+                    </div>
                 </NavLink>
             )
         })

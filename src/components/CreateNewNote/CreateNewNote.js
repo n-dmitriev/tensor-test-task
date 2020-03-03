@@ -38,7 +38,7 @@ export default class CreateNewNote extends Component {
             editing = true
         }
         return (
-            <div key={'note-creator'} className={'create-note__creator'}>
+            <div key={'note-creator'} className={'content-section'}>
                 <h2>{editing === true
                     ? 'Редактирование заметки'
                     : 'Создание заметки'
@@ -74,8 +74,10 @@ export default class CreateNewNote extends Component {
                             store.addNote(this.state.header.content, this.state.text.content, `${new Date()}`)
                     }}>Сохранить
                     </NavLink>
-                    <NavLink to={`${editing === true ? '/current-note/' + id : '/'}`}
-                             className={'main-item-style'}>Удалить</NavLink>
+                    <NavLink className={'main-item-style'}
+                        to={`${editing === true ? '/current-note/' + id : '/'}`}>
+                        {editing === true ? 'Отменить' : 'Удалить'}
+                    </NavLink>
                 </div>
             </div>
         )

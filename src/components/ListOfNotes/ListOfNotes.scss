@@ -10,6 +10,12 @@
     color: white;
   }
 
+  &__message-no-notes{
+    margin: 17px;
+    opacity: 0.4;
+    cursor: default;
+  }
+
   &__data {
     font-size: 13px;
     opacity: 50%;
