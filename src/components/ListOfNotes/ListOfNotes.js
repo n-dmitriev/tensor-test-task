@@ -11,6 +11,12 @@ class ListOfNotes extends Component {
         store.addSubscriber( (list)=>{this.setState({notes: list})})
     }
 
+    deleteNoteHandler(e) {
+        e.preventDefault()
+        const idList = e.target.id.split('-')
+        store.deleteNoteById(`${idList[1]}-${idList[2]}`)
+    }
+
     renderNotes() {
         const listOfNotes = this.state.notes
         if(listOfNotes.length === 0)
@@ -18,6 +24,7 @@ class ListOfNotes extends Component {
         return listOfNotes.map(note => {
             return (
                 <NavLink id={note.id} key={note.id} className={'list-notes__note'} to={`/current-note/${note.id}`}>
+                    <span className={'deleted'} id={'close-'+note.id} onClick={this.deleteNoteHandler}></span>
                     <div className="non-click">
                         <h3>{note.header}</h3>
                         <p><i>{note.content.split(' ').slice(0, 6).join(' ')}...</i></p>
@@ -30,9 +37,12 @@ class ListOfNotes extends Component {
 
     render() {
         return (
-            <div className={'list-notes'}>
-                {this.renderNotes()}
-            </div>
+            <>
+                <h2>Ваши заметки:</h2>
+                <div className={'list-notes'}>
+                    {this.renderNotes()}
+                </div>
+            </>
         )
     }
 }

@@ -8,9 +8,12 @@
   & .active {
     background-color: gray;
     color: white;
+    .deleted{
+      display: none;
+    }
   }
 
-  &__message-no-notes{
+  &__message-no-notes {
     margin: 17px;
     opacity: 0.4;
     cursor: default;
@@ -43,6 +46,33 @@
 
   .non-click {
     pointer-events: none;
+  }
+
+  .deleted {
+    position: relative;
+    float: right;
+    padding: 10px 10px 0 0;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    cursor: default;
+    &:hover {
+      opacity: 1;
+    }
+    &:before,&:after {
+      position: absolute;
+      left: 15px;
+      content: ' ';
+      height: 25px;
+      width: 2px;
+      background-color: #333;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
   }
 }
 

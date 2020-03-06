@@ -16,7 +16,6 @@ function App() {
                 <AddNote/>
                 <Search/>
                 <SortBy/>
-                <h2>Ваши заметки:</h2>
                 <ListOfNotes/>
             </div>
             <div className="app__main-unit">

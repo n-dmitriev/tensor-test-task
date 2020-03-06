@@ -8,14 +8,16 @@ class Search extends React.Component{
         id: ''
     }
 
+    changeHandler(e) {
+        if (store.searchNote(e.target.value)!== null)
+            this.setState({redirect: true, id: store.searchNote(e.target.value)})
+        else this.setState({redirect: false, id: ''})
+    }
+
     render() {
         return (
             <div className={'search'}>
-                <input onChange={(e)=>{
-                    if (store.searchNote(e.target.value)!== null)
-                        this.setState({redirect: true, id: store.searchNote(e.target.value)})
-                    else this.setState({redirect: false, id: ''})
-                }} className={'main-item-style'} type="text" name="text" placeholder="Поиск по заголовку..."/>
+                <input onChange={this.changeHandler.bind(this)} className={'main-item-style'} type="text" name="text" placeholder="Поиск по заголовку..."/>
                 {this.state.redirect === true ?<Redirect to={`/current-note/${this.state.id}`} />:<Redirect to={'/'} />}
             </div>
         )
