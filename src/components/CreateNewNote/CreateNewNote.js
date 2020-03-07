@@ -13,6 +13,10 @@ export default class CreateNewNote extends Component {
             content: '',
             itsChange: false,
         },
+        chosen:{
+            flag: null,
+            itsChange: false,
+        }
     }
 
     componentDidMount() {
@@ -26,6 +30,20 @@ export default class CreateNewNote extends Component {
 
     textInputChange(event) {
         this.setState({text: {content: event.target.value, itsChange: true}})
+    }
+
+    chosenChange(e) {
+        if (this.state.chosen.flag === null) {
+            this.setState({
+                chosen: {
+                    flag: !e.target.value,
+                    itsChange: true
+                }
+            })
+        } else
+            this.setState({
+                chosen: !this.state.chosen,
+            })
     }
 
     renderForm() {
@@ -58,24 +76,35 @@ export default class CreateNewNote extends Component {
                           }
                           onChange={this.textInputChange.bind(this)}>
                 </textarea>
+
+                <div className={'chosen-check'}>
+                    <input type="checkbox" className="checkbox" id="checkbox" value={activeNote.chosen}
+                           onChange={this.chosenChange.bind(this)}
+                           defaultChecked={activeNote.chosen === true ? 'checked' : ''}
+                    />
+                    <label htmlFor="checkbox">Добавить эту заметку в избранное?</label>
+                </div>
+
                 <div className={'button-section'}>
                     <NavLink to={`${editing === true ? '/current-note/' + id : '/'}`}
                              className={'main-item-style'} onClick={() => {
                         if (editing === true) {
-                            let header, text
+                            let header, text, chosen
+                            this.state.chosen === null ? chosen = activeNote.chosen : chosen = this.state.chosen
                             this.state.header.itsChange === true
                                 ? header = this.state.header.content
                                 : header = activeNote.header
                             this.state.text.itsChange === true
                                 ? text = this.state.text.content
                                 : text = activeNote.content
-                            store.setNote(id, header, text, `${new Date()}`)
+                            store.setNote(id, header, text, `${new Date()}`, chosen)
                         } else
-                            store.addNote(this.state.header.content, this.state.text.content, `${new Date()}`)
+                            store.addNote(this.state.header.content, this.state.text.content, `${new Date()}`,
+                                this.state.chosen === null?false:this.state.chosen)
                     }}>Сохранить
                     </NavLink>
                     <NavLink className={'main-item-style'}
-                        to={`${editing === true ? '/current-note/' + id : '/'}`}>
+                             to={`${editing === true ? '/current-note/' + id : '/'}`}>
                         {editing === true ? 'Отменить' : 'Удалить'}
                     </NavLink>
                 </div>

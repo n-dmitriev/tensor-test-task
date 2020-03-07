@@ -12,18 +12,20 @@ const store = {
         const index = this.listOfNotes.findIndex(x => x.id === id)
         return this.listOfNotes[index]
     },
-    setNote: function (id, header, content, data) {
+    setNote: function (id, header, content, data, chosen) {
         const note = this.getNoteById(id)
         note.content = content
         note.header = header
         note.data = data
+        note.chosen = chosen
+        console.log(note)
         this.subscribers.forEach((c) => c.func(this.listOfNotes))
         localStorage.setItem('items', JSON.stringify(this.listOfNotes))
     },
-    addNote: function (header, content, data) {
+    addNote: function (header, content, data, chosen) {
         const id = `note-${Math.random().toString(36).substr(2, 9)}`
         this.listOfNotes.unshift({
-            id: id, header, content, data,
+            id: id, header, content, data, chosen
         })
         this.subscribers.forEach((c) => c.func(this.listOfNotes))
         localStorage.setItem('items', JSON.stringify(this.listOfNotes))
@@ -50,6 +52,19 @@ const store = {
         else
             return this.listOfNotes[index].id
     },
+    getChosenList(){
+        return this.listOfNotes.map(element =>{
+            if(element.chosen === true)
+                return element
+        })
+    },
+    invertNoteToChosen(id){
+        const element = this.getNoteById(id)
+        element.chosen = !element.chosen
+        console.log(element)
+        this.subscribers.forEach((c) => c.func(this.listOfNotes))
+        localStorage.setItem('items', JSON.stringify(this.listOfNotes))
+    }
 }
 
 export default store

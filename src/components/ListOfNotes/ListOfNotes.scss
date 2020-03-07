@@ -7,8 +7,8 @@
 
   & .active {
     background-color: gray;
-    color: white;
-    .deleted{
+    color: white !important;
+    .deleted, .fa-star{
       display: none;
     }
   }
@@ -41,37 +41,6 @@
       -webkit-transform: scale(1.1);
       -ms-transform: scale(1.1);
       transform: scale(1.1);
-    }
-  }
-
-  .non-click {
-    pointer-events: none;
-  }
-
-  .deleted {
-    position: relative;
-    float: right;
-    padding: 10px 10px 0 0;
-    width: 32px;
-    height: 32px;
-    opacity: 0.3;
-    cursor: default;
-    &:hover {
-      opacity: 1;
-    }
-    &:before,&:after {
-      position: absolute;
-      left: 15px;
-      content: ' ';
-      height: 25px;
-      width: 2px;
-      background-color: #333;
-    }
-    &:before {
-      transform: rotate(45deg);
-    }
-    &:after {
-      transform: rotate(-45deg);
     }
   }
 }
