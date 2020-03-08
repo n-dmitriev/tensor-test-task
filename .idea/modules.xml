@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../../JS/JSApp/.idea/JSApp.iml" filepath="$PROJECT_DIR$/../../JS/JSApp/.idea/JSApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tensor-test-task.iml" filepath="$PROJECT_DIR$/.idea/tensor-test-task.iml" />
     </modules>
   </component>

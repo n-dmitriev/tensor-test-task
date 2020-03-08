@@ -1,5 +1,5 @@
 import React from 'react'
-import store from '../../store/store'
+import oldStore from '../../store/oldStore'
 import { Redirect } from 'react-router-dom'
 
 class Search extends React.Component{
@@ -9,8 +9,8 @@ class Search extends React.Component{
     }
 
     changeHandler(e) {
-        if (store.searchNote(e.target.value)!== null)
-            this.setState({redirect: true, id: store.searchNote(e.target.value)})
+        if (oldStore.searchNote(e.target.value)!== null)
+            this.setState({redirect: true, id: oldStore.searchNote(e.target.value)})
         else this.setState({redirect: false, id: ''})
     }
 

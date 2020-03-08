@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import './CreateNewNote.scss'
-import store from '../../store/store'
+import oldStore from '../../store/oldStore'
 import {NavLink} from 'react-router-dom'
 
 export default class CreateNewNote extends Component {
@@ -20,7 +20,7 @@ export default class CreateNewNote extends Component {
     }
 
     componentDidMount() {
-        store.addSubscriber(() => {
+        oldStore.addSubscriber(() => {
         })
     }
 
@@ -52,7 +52,7 @@ export default class CreateNewNote extends Component {
         if (id === 'create')
             activeNote = {}
         else {
-            activeNote = store.getNoteById(id)
+            activeNote = oldStore.getNoteById(id)
             editing = true
         }
         return (
@@ -97,9 +97,9 @@ export default class CreateNewNote extends Component {
                             this.state.text.itsChange === true
                                 ? text = this.state.text.content
                                 : text = activeNote.content
-                            store.setNote(id, header, text, `${new Date()}`, chosen)
+                            oldStore.setNote(id, header, text, `${new Date()}`, chosen)
                         } else
-                            store.addNote(this.state.header.content, this.state.text.content, `${new Date()}`,
+                            oldStore.addNote(this.state.header.content, this.state.text.content, `${new Date()}`,
                                 this.state.chosen === null?false:this.state.chosen)
                     }}>Сохранить
                     </NavLink>

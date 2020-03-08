@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import './ListOfNotes.scss'
 import {NavLink} from 'react-router-dom'
-import store from '../../store/store'
+import oldStore from '../../store/oldStore'
 
 class ListOfNotes extends Component {
     state = {
@@ -9,30 +9,30 @@ class ListOfNotes extends Component {
     }
 
     componentDidMount() {
-        store.addSubscriber((list) => {
+        oldStore.addSubscriber((list) => {
             this.setState({notes: list})
         })
     }
 
     /* if(this.props.list === 'notes-tab')
-            store.addSubscriber((list) => {
+            oldStore.addSubscriber((list) => {
                 this.setState({notes: list})
             })
         else if (this.props.list === 'chosen-tab')
-            store.addSubscriber(() => {
-                this.setState({notes: store.getChosenList()})
+            oldStore.addSubscriber(() => {
+                this.setState({notes: oldStore.getChosenList()})
             })*/
 
     deleteNoteHandler(e) {
         e.preventDefault()
         const idList = e.target.id.split('-')
-        store.deleteNoteById(`${idList[1]}-${idList[2]}`)
+        oldStore.deleteNoteById(`${idList[1]}-${idList[2]}`)
     }
 
     addToChosen(e){
         e.preventDefault()
         const idList = e.target.id.split('-')
-        store.invertNoteToChosen(`${idList[1]}-${idList[2]}`)
+        oldStore.invertNoteToChosen(`${idList[1]}-${idList[2]}`)
         if (e.target.classList.contains('fa-star_active') === false)
             e.target.classList.add('fa-star_active')
         else

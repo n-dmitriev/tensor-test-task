@@ -1,7 +1,7 @@
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 localStorage.setItem('items', JSON.stringify(itemsArray))
 
-const store = {
+const oldStore = {
     listOfNotes: itemsArray,
     subscribers: [],
     addSubscriber: function (caller) {
@@ -67,4 +67,4 @@ const store = {
     }
 }
 
-export default store
+export default oldStore

@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import './Note.scss'
-import store from '../../store/store'
+import oldStore from '../../store/oldStore'
 import {NavLink} from 'react-router-dom'
 
 
 class Note extends Component {
     addToChosen(e) {
         const idList = e.target.id.split('-')
-        store.invertNoteToChosen(`${idList[1]}-${idList[2]}`)
+        oldStore.invertNoteToChosen(`${idList[1]}-${idList[2]}`)
         if (e.target.classList.contains('fa-star_active') === false)
             e.target.classList.add('fa-star_active')
         else
@@ -15,7 +15,7 @@ class Note extends Component {
     }
 
     renderNote() {
-        const activeNote = store.getNoteById(this.props.match.params.number)
+        const activeNote = oldStore.getNoteById(this.props.match.params.number)
         return (
             <div key={activeNote.id} className={'content-section'}>
                 <i className={activeNote.chosen === true ? 'fa fa-star fa-star_active' : 'fa fa-star'}
@@ -29,7 +29,7 @@ class Note extends Component {
                 <div className={'button-section'}>
                     <NavLink className={'main-item-style'} to={`/note-create/${activeNote.id}`}>Редактировать</NavLink>
                     <NavLink className={'main-item-style'} to={'/'} onClick={(() => {
-                        store.deleteNoteById(activeNote.id)
+                        oldStore.deleteNoteById(activeNote.id)
                     })}>Удалить</NavLink>
                 </div>
             </div>
