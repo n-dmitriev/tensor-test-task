@@ -16,6 +16,7 @@
       -moz-transition: all 0.2s ease-out;
       -o-transition: all 0.2s ease-out;
       -webkit-transition: all 0.2s ease-out;
+
       &:hover {
         -webkit-transform: scale(1.01);
         -ms-transform: scale(1.01);
@@ -29,6 +30,11 @@
 
     & textarea {
       resize: none;
+    }
+
+    & button {
+      height: 35px;
+      margin: 20px 13px 20px 10px;
     }
   }
 }

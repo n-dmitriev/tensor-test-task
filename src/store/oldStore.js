@@ -18,7 +18,6 @@ const oldStore = {
         note.header = header
         note.data = data
         note.chosen = chosen
-        console.log(note)
         this.subscribers.forEach((c) => c.func(this.listOfNotes))
         localStorage.setItem('items', JSON.stringify(this.listOfNotes))
     },
@@ -52,8 +51,8 @@ const oldStore = {
         else
             return this.listOfNotes[index].id
     },
-    getChosenList(){
-        return this.listOfNotes.map(element =>{
+    getChosenList(listOfNotes){
+        return listOfNotes.filter(element =>{
             if(element.chosen === true)
                 return element
         })
@@ -61,7 +60,6 @@ const oldStore = {
     invertNoteToChosen(id){
         const element = this.getNoteById(id)
         element.chosen = !element.chosen
-        console.log(element)
         this.subscribers.forEach((c) => c.func(this.listOfNotes))
         localStorage.setItem('items', JSON.stringify(this.listOfNotes))
     }

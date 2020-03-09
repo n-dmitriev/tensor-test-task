@@ -14,15 +14,6 @@ class ListOfNotes extends Component {
         })
     }
 
-    /* if(this.props.list === 'notes-tab')
-            oldStore.addSubscriber((list) => {
-                this.setState({notes: list})
-            })
-        else if (this.props.list === 'chosen-tab')
-            oldStore.addSubscriber(() => {
-                this.setState({notes: oldStore.getChosenList()})
-            })*/
-
     deleteNoteHandler(e) {
         e.preventDefault()
         const idList = e.target.id.split('-')
@@ -40,7 +31,11 @@ class ListOfNotes extends Component {
     }
 
     renderNotes() {
-        const listOfNotes = this.state.notes
+        let listOfNotes
+        if(this.props.list === 'chosen-tab')
+            listOfNotes = oldStore.getChosenList(this.state.notes)
+        else
+            listOfNotes = this.state.notes
         if (listOfNotes.length === 0){
             if(this.props.list === 'notes-tab')
                 return <b className={'list-notes__message-no-notes'}>Вы ещё не создали заметок...</b>
@@ -48,6 +43,7 @@ class ListOfNotes extends Component {
                 return <b className={'list-notes__message-no-notes'}>Вы ещё не добавили заметок в избранное...</b>
             else return null
         }
+
         return listOfNotes.map(note => {
             return (
                 <NavLink id={note.id} key={note.id} className={'list-notes__note'} to={`/current-note/${note.id}`}>

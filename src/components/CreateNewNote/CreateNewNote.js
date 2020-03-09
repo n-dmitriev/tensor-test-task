@@ -1,22 +1,12 @@
 import React, {Component} from 'react'
 import './CreateNewNote.scss'
 import oldStore from '../../store/oldStore'
-import {NavLink} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 export default class CreateNewNote extends Component {
     state = {
-        header: {
-            content: '',
-            itsChange: false,
-        },
-        text: {
-            content: '',
-            itsChange: false,
-        },
-        chosen:{
-            flag: null,
-            itsChange: false,
-        }
+        id: this.props.match.params.number,
+        redirect: false,
     }
 
     componentDidMount() {
@@ -24,91 +14,75 @@ export default class CreateNewNote extends Component {
         })
     }
 
-    headerChange(event) {
-        this.setState({header: {content: event.target.value, itsChange: true}})
+    constructor(props) {
+        super(props)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.reset = this.reset.bind(this)
+        this.input = React.createRef()
+        this.text = React.createRef()
+        this.chosen = React.createRef()
     }
 
-    textInputChange(event) {
-        this.setState({text: {content: event.target.value, itsChange: true}})
+    handleSubmit(event) {
+        event.preventDefault()
+        if (this.state.id === 'create')
+            oldStore.addNote(this.input.current.value, this.text.current.value, `${new Date()}`, this.chosen.current.checked)
+        else
+            oldStore.setNote(this.state.id, this.input.current.value, this.text.current.value, `${new Date()}`, this.chosen.current.checked)
+        this.setState({
+            redirect: true,
+        })
     }
 
-    chosenChange(e) {
-        if (this.state.chosen.flag === null) {
-            this.setState({
-                chosen: {
-                    flag: !e.target.value,
-                    itsChange: true
-                }
-            })
-        } else
-            this.setState({
-                chosen: !this.state.chosen,
-            })
+    reset() {
+        this.setState({
+            redirect: true,
+        })
     }
 
     renderForm() {
-        const id = this.props.match.params.number
         let activeNote, editing = false
-        if (id === 'create')
+        if (this.state.id === 'create')
             activeNote = {}
         else {
-            activeNote = oldStore.getNoteById(id)
+            activeNote = oldStore.getNoteById(this.state.id)
             editing = true
         }
         return (
-            <div key={'note-creator'} className={'content-section'}>
+            <form key={'note-creator'} className={'content-section'} onSubmit={this.handleSubmit} onReset={this.reset}>
                 <h2>{editing === true
                     ? 'Редактирование заметки'
                     : 'Создание заметки'
                 }</h2>
-                <input type="text" name="input-header" placeholder="Введите заголовок"
+                <input type="text" ref={this.input} placeholder="Введите заголовок"
                        defaultValue={editing === true
                            ? activeNote.header
                            : ''
-                       }
-                       onChange={this.headerChange.bind(this)}
-                />
+                       }/>
                 <hr/>
-                <textarea name="input-text" id="" cols="30" rows="10" placeholder="Введите текст заметки"
+                <textarea ref={this.text} cols="30" rows="10" placeholder="Введите текст заметки"
                           defaultValue={editing === true
                               ? activeNote.content
                               : ''
-                          }
-                          onChange={this.textInputChange.bind(this)}>
+                          }>
                 </textarea>
-
                 <div className={'chosen-check'}>
-                    <input type="checkbox" className="checkbox" id="checkbox" value={activeNote.chosen}
-                           onChange={this.chosenChange.bind(this)}
+                    <input ref={this.chosen} type="checkbox" className="checkbox" id="checkbox"
                            defaultChecked={activeNote.chosen === true ? 'checked' : ''}
                     />
                     <label htmlFor="checkbox">Добавить эту заметку в избранное?</label>
                 </div>
-
                 <div className={'button-section'}>
-                    <NavLink to={`${editing === true ? '/current-note/' + id : '/'}`}
-                             className={'main-item-style'} onClick={() => {
-                        if (editing === true) {
-                            let header, text, chosen
-                            this.state.chosen === null ? chosen = activeNote.chosen : chosen = this.state.chosen
-                            this.state.header.itsChange === true
-                                ? header = this.state.header.content
-                                : header = activeNote.header
-                            this.state.text.itsChange === true
-                                ? text = this.state.text.content
-                                : text = activeNote.content
-                            oldStore.setNote(id, header, text, `${new Date()}`, chosen)
-                        } else
-                            oldStore.addNote(this.state.header.content, this.state.text.content, `${new Date()}`,
-                                this.state.chosen === null?false:this.state.chosen)
-                    }}>Сохранить
-                    </NavLink>
-                    <NavLink className={'main-item-style'}
-                             to={`${editing === true ? '/current-note/' + id : '/'}`}>
+                    <button type="submit" className={'main-item-style'}>
+                        Сохранить
+                    </button>
+                    <button type="reset" className={'main-item-style'}>
                         {editing === true ? 'Отменить' : 'Удалить'}
-                    </NavLink>
+                    </button>
                 </div>
-            </div>
+                {this.state.redirect === true ?
+                    <Redirect to={`${editing === true ? '/current-note/' + this.state.id : '/'}`}/> : null}
+            </form>
         )
     }
 
