@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom'
 export default class CreateNewNote extends Component {
     state = {
         id: this.props.match.params.number,
-        redirect: false,
+        redirect: false
     }
 
     componentDidMount() {
