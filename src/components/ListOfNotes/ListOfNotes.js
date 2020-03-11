@@ -7,15 +7,15 @@ class ListOfNotes extends Component {
     deleteNoteHandler(e) {
         e.preventDefault()
         const idList = e.target.id.split('-')
-        //this.props.delete(`${idList[1]}-${idList[2]}`)
-        oldStore.deleteNoteById(`${idList[1]}-${idList[2]}`)
+        this.props.delete(`${idList[1]}-${idList[2]}`)
+        //oldStore.deleteNoteById(`${idList[1]}-${idList[2]}`)
     }
 
     addToChosen(e){
         e.preventDefault()
         const idList = e.target.id.split('-')
-        //this.props.invert(`${idList[1]}-${idList[2]}`)
-        oldStore.invertNoteToChosen(`${idList[1]}-${idList[2]}`)
+        this.props.invert(`${idList[1]}-${idList[2]}`)
+        //oldStore.invertNoteToChosen(`${idList[1]}-${idList[2]}`)
         if (e.target.classList.contains('fa-star_active') === false)
             e.target.classList.add('fa-star_active')
         else

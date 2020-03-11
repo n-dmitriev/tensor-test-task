@@ -1,0 +1,1 @@
+export const DOWNLOAD_STORE = 'DOWNLOAD_STORE'
